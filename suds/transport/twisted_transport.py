@@ -10,7 +10,7 @@ from twisted.internet           import defer, reactor
 from twisted.internet.endpoints import TCP4ClientEndpoint
 from twisted.internet.protocol  import ClientCreator, ClientFactory, Protocol
 from twisted.internet.ssl       import CertificateOptions
-from twisted.web.client         import Agent, WebClientContextFactory, _parse
+from twisted.web.client         import Agent, WebClientContextFactory
 from twisted.web.http_headers   import Headers
 from twisted.web.iweb           import IBodyProducer
 from twisted.web._newclient     import HTTP11ClientProtocol, Request
@@ -179,10 +179,9 @@ class ProxyAgent(Agent):
         """
         Issue a new request via the configured proxy.
         """
-        scheme, host, port, path = _parse(uri)
         request_path = uri
 
-        d = self._connect(scheme, host, port)
+        d = self._connect(None, None, None)
 
         if headers is None:
             headers = Headers()
